@@ -10,6 +10,9 @@
 #include <stddef.h>
 #include <sys/printk.h>
 #include <sys/util.h>
+#include "nrf.h"
+#include <nrfx_ppi.h>
+#include "nrfx.h"
 
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/hci.h>
@@ -53,6 +56,48 @@ void main(void)
 		return;
 	}
 
+
+	// We want to set up a PPI channel to capture a timer when the radio is ready to transmit.
+
+	// Alloc PPI channel (get a free PPI channel)
+	uint8_t ppi_ch;
+	err = nrfx_ppi_channel_alloc(&ppi_ch);
+	if(err != NRFX_SUCCESS)
+	{
+		printk("error");
+		return;
+	}
+
+	// Connect EVENTS_TXREADY to TASKS_CAPTURE
+	err = nrfx_ppi_channel_assign(ppi_ch, (uint32_t) &NRF_RADIO->EVENTS_TXREADY, (uint32_t) &NRF_TIMER2->TASKS_CAPTURE[1]);
+	if(err != NRFX_SUCCESS)
+	{
+		printk("error");
+		return;
+	}
+
+	// Fork to TASKS_STOP
+	// You will notice that the measurement continuously changes. To take only a
+	// single time measurement, enable a second task for the same event to stop the timer.
+	// err = nrfx_ppi_channel_fork_assign(ppi_ch, (uint32_t) &NRF_TIMER2->TASKS_STOP);
+	// if (err != NRFX_SUCCESS) {
+	// 	printk("Failed to fork ppi channel (err %d)\n", err);
+	// 	return;
+	// }
+
+	// enable channel
+	err = nrfx_ppi_channel_enable(ppi_ch);
+	if(err != NRFX_SUCCESS)
+	{
+		printk("error");
+		return;
+	}
+
+
+	// clear and start timer
+	NRF_TIMER2->TASKS_START = 1;
+	NRF_TIMER2->TASKS_CLEAR = 1;
+
 	do {
 		k_sleep(K_MSEC(400));
 
@@ -65,6 +110,7 @@ void main(void)
 		}
 
 		k_sleep(K_MSEC(400));
+		printk("Captured the timer at %d ticks\n", NRF_TIMER2->CC[1]);
 
 		err = bt_le_adv_stop();
 		if (err) {
