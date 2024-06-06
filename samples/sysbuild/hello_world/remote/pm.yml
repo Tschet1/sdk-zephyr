@@ -1,0 +1,6 @@
+remote:
+  placement:
+    after:
+      - app
+  region: flash_primary
+  size: 0x95000
