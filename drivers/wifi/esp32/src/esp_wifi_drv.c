@@ -441,7 +441,8 @@ static int esp32_wifi_disconnect(const struct device *dev)
 
 	if (ret != ESP_OK) {
 		LOG_INF("Failed to disconnect from hotspot");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -463,7 +464,8 @@ static int esp32_wifi_connect(const struct device *dev,
 	ret = esp_wifi_get_mode(&mode);
 	if (ret) {
 		LOG_ERR("Failed to get Wi-Fi mode (%d)", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (IS_ENABLED(CONFIG_ESP32_WIFI_AP_STA_MODE) &&
@@ -475,12 +477,14 @@ static int esp32_wifi_connect(const struct device *dev,
 
 	if (ret) {
 		LOG_ERR("Failed to set Wi-Fi mode (%d)", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 	ret = esp_wifi_start();
 	if (ret) {
 		LOG_ERR("Failed to start Wi-Fi driver (%d)", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (data->state != ESP32_STA_STARTED) {
@@ -554,7 +558,8 @@ static int esp32_wifi_connect(const struct device *dev,
 	ret = esp_wifi_connect();
 	if (ret) {
 		LOG_ERR("Failed to connect to Wi-Fi access point (%d)", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -601,13 +606,15 @@ static int esp32_wifi_scan(const struct device *dev, struct wifi_scan_params *pa
 	ret = esp_wifi_start();
 	if (ret) {
 		LOG_ERR("Failed to start Wi-Fi driver (%d)", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = esp_wifi_scan_start(&scan_config, false);
 	if (ret != ESP_OK) {
 		LOG_ERR("Failed to start Wi-Fi scanning");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -676,7 +683,8 @@ static int esp32_wifi_ap_enable(const struct device *dev,
 	err = esp_wifi_start();
 	if (err) {
 		LOG_ERR("Failed to enable Wi-Fi AP mode");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -696,7 +704,8 @@ static int esp32_wifi_ap_disable(const struct device *dev)
 	}
 	if (err) {
 		LOG_ERR("Failed to disable Wi-Fi AP mode: (%d)", err);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

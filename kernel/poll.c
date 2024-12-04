@@ -327,7 +327,8 @@ int z_impl_k_poll(struct k_poll_event *events, int num_events,
 
 		SYS_PORT_TRACING_FUNC_EXIT(k_poll_api, poll, events, -EAGAIN);
 
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	static _wait_q_t wait_q = Z_WAIT_Q_INIT(&wait_q);

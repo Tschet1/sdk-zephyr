@@ -771,7 +771,8 @@ static int numaker_usbd_xfer_out(const struct device *dev, uint8_t ep, bool stri
 	if (udc_ep_is_busy(dev, ep)) {
 		if (strict) {
 			LOG_ERR("EP 0x%02x busy", ep);
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		return 0;
@@ -813,7 +814,8 @@ static int numaker_usbd_xfer_in(const struct device *dev, uint8_t ep, bool stric
 	if (udc_ep_is_busy(dev, ep)) {
 		if (strict) {
 			LOG_ERR("EP 0x%02x busy", ep);
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		return 0;

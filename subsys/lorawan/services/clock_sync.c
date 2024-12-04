@@ -224,7 +224,8 @@ int lorawan_clock_sync_get(uint32_t *gps_time)
 		*gps_time = k_uptime_seconds() + ctx.time_offset;
 		return 0;
 	} else {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 }
 

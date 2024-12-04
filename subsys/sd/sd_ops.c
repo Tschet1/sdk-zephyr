@@ -361,7 +361,8 @@ int sdmmc_switch_voltage(struct sd_card *card)
 		if (!sdhc_card_busy(card->sdhc)) {
 			/* Card did not drive CMD and DAT lines low */
 			LOG_DBG("Card did not drive DAT lines low");
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 	/*
@@ -397,7 +398,8 @@ int sdmmc_switch_voltage(struct sd_card *card)
 	sd_delay(1);
 	if (sdhc_card_busy(card->sdhc)) {
 		LOG_DBG("Card failed to switch voltages");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 	card->card_voltage = SD_VOL_1_8_V;
 	LOG_INF("Card switched to 1.8V signaling");

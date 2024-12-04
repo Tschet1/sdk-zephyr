@@ -275,7 +275,8 @@ int stm32_bdma_disable_channel(BDMA_TypeDef *dma, uint32_t id)
 		return 0;
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 void stm32_bdma_enable_channel(BDMA_TypeDef *dma, uint32_t id)

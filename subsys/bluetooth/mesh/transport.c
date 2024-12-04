@@ -1647,7 +1647,8 @@ int bt_mesh_trans_recv(struct net_buf_simple *buf, struct bt_mesh_net_rx *rx)
 	    bt_mesh_lpn_established() && rx->net_if == BT_MESH_NET_IF_ADV &&
 	    (!bt_mesh_lpn_waiting_update() || !rx->friend_cred)) {
 		LOG_WRN("Ignoring unexpected message in Low Power mode");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Save the app-level state so the buffer can later be placed in

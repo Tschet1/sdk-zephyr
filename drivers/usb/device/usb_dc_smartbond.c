@@ -1500,7 +1500,8 @@ int usb_dc_ep_write(const uint8_t ep, const uint8_t *const data, const uint32_t 
 	LOG_DBG("%02x %d bytes", ep, (int)data_len);
 	if (!atomic_cas(&ep_state->busy, 0, 1)) {
 		LOG_DBG("%02x transfer already in progress", ep);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ep_state->buffer = (uint8_t *)data;

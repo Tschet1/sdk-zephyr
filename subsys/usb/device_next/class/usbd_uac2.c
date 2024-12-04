@@ -269,7 +269,8 @@ int usbd_uac2_send(const struct device *dev, uint8_t terminal,
 
 	if (atomic_test_and_set_bit(&ctx->as_queued, as_idx)) {
 		LOG_ERR("Previous send not finished yet on 0x%02x", ep);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	buf = uac2_buf_alloc(ep, data, size);

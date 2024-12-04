@@ -605,7 +605,8 @@ int usb_dc_ep_write(uint8_t ep, const uint8_t *buf, uint32_t len, uint32_t *ret_
 
 	if (endpoint->EPSTATUS.bit.BK1RDY) {
 		/* Write in progress, drop */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	len = Z_MIN(len, capacity);
@@ -648,7 +649,8 @@ int usb_dc_ep_read_ex(uint8_t ep, uint8_t *buf, uint32_t max_data_len,
 	}
 
 	if (!endpoint->EPSTATUS.bit.BK0RDY) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* The code below emulates the Quark FIFO which the Zephyr USB

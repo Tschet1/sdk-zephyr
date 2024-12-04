@@ -730,7 +730,8 @@ static int udc_nrf_host_wakeup(const struct device *dev)
 
 	LOG_DBG("Host wakeup request");
 	if (!res) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

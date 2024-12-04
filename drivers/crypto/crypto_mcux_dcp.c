@@ -45,7 +45,8 @@ static inline int fsl_to_errno(status_t status)
 	case kStatus_InvalidArgument:
 		return -EINVAL;
 	case kStatus_Timeout:
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return -1;

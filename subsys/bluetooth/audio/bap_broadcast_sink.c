@@ -1196,7 +1196,8 @@ int bt_bap_broadcast_sink_sync(struct bt_bap_broadcast_sink *sink, uint32_t inde
 		 * then. This would be similar how LE Create Connection works.
 		 */
 		LOG_DBG("BIGInfo not received, cannot sync yet");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (atomic_test_bit(sink->flags,

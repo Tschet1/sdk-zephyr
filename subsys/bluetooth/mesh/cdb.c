@@ -132,7 +132,8 @@ static int addr_is_free(uint16_t addr_start, uint8_t num_elem, uint16_t *next)
 				*next = other_end + 1;
 			}
 
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 

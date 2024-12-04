@@ -901,7 +901,8 @@ static inline int cdns_i3c_wait_for_idle(const struct device *dev)
 	 */
 	while (!(sys_read32(config->base + MST_STATUS0) & MST_STATUS0_IDLE)) {
 		if (k_cycle_get_32() - start_time > I3C_IDLE_TIMEOUT_CYC) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 
@@ -1104,7 +1105,8 @@ static int cdns_i3c_target_ibi_raise_hj(const struct device *dev)
 	/* Check if HJ requests DISEC CCC with DISHJ field set has been received */
 	if (sys_read32(config->base + SLV_STATUS1) & SLV_STATUS1_HJ_DIS) {
 		LOG_ERR("%s: HJ requests are currently disabled by DISEC", dev->name);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	sys_write32(CTRL_HJ_INIT | sys_read32(config->base + CTRL), config->base + CTRL);

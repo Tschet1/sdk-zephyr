@@ -735,7 +735,8 @@ int usb_dc_ep_write(const uint8_t ep, const uint8_t *const data,
 
 	ret = k_sem_take(&ep_state->write_sem, K_NO_WAIT);
 	if (ret) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!k_is_in_isr()) {

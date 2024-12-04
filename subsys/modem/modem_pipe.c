@@ -104,7 +104,8 @@ int modem_pipe_open(struct modem_pipe *pipe, k_timeout_t timeout)
 	}
 
 	if (!pipe_await_events(pipe, PIPE_EVENT_OPENED_BIT, timeout)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -172,7 +173,8 @@ int modem_pipe_close(struct modem_pipe *pipe, k_timeout_t timeout)
 	}
 
 	if (!pipe_await_events(pipe, PIPE_EVENT_CLOSED_BIT, timeout)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

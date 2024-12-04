@@ -516,7 +516,8 @@ static int ppp_input_byte(struct ppp_driver_context *ppp, uint8_t byte)
 			/* Check if we need to sync again */
 			if (byte == 0x7e) {
 				/* Just skip to the start of the pkt byte */
-				return -EAGAIN;
+				printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 			}
 
 			LOG_DBG("Invalid (0x%02x) byte, expecting Address",
@@ -932,7 +933,8 @@ static int ppp_consume_ringbuf(struct ppp_driver_context *ppp)
 		LOG_DBG("Cannot flush ring buffer (%d)", ret);
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static void ppp_isr_cb_work(struct k_work *work)

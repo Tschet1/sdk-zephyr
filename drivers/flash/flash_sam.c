@@ -288,7 +288,8 @@ static int sam_flash_write(const struct device *dev, off_t offset, const void *d
 	key = k_spin_lock(&sam_data->lock);
 	if (sam_flash_write_dwords_to_flash(dev, offset, data, len / sizeof(uint32_t)) < 0) {
 		k_spin_unlock(&sam_data->lock, key);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	k_spin_unlock(&sam_data->lock, key);

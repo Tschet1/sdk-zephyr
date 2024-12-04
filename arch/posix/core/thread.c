@@ -66,13 +66,15 @@ int arch_thread_name_set(struct k_thread *thread, const char *str)
 
 	thread_status = thread->callee_saved.thread_status;
 	if (!thread_status) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	thread_index = thread_status->thread_idx;
 
 	if (!str) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	snprintf(th_name, MAX_HOST_THREAD_NAME,
@@ -83,7 +85,8 @@ int arch_thread_name_set(struct k_thread *thread, const char *str)
 
 	ret = posix_arch_thread_name_set(thread_index, th_name);
 	if (ret) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

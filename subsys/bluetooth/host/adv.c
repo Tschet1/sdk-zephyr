@@ -658,7 +658,8 @@ static int hci_set_ad_ext(struct bt_le_ext_adv *adv, uint16_t hci_op,
 		/* It is not allowed to set advertising data in multiple
 		 * operations while the advertiser is running.
 		 */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (total_len_bytes > bt_dev.le.max_adv_data_len) {
@@ -861,7 +862,8 @@ int bt_le_adv_update_data(const struct bt_data *ad, size_t ad_len,
 	}
 
 	if (!atomic_test_bit(adv->flags, BT_ADV_ENABLED)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	scannable = atomic_test_bit(adv->flags, BT_ADV_SCANNABLE);
@@ -979,7 +981,8 @@ int bt_le_adv_start_legacy(struct bt_le_ext_adv *adv,
 	int err;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!valid_adv_param(param)) {
@@ -1279,7 +1282,8 @@ int bt_le_adv_start_ext(struct bt_le_ext_adv *adv,
 	int err;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!valid_adv_param(param)) {
@@ -1559,7 +1563,8 @@ int bt_le_ext_adv_create(const struct bt_le_adv_param *param,
 	int err;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!valid_adv_ext_param(param)) {

@@ -346,7 +346,8 @@ static int pch_check_status(const struct device *dev)
 	if (status & PCH_SMBUS_HSTS_BUS_ERROR) {
 		LOG_WRN("Bus Error (BERR) received");
 
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/**

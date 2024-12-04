@@ -124,7 +124,8 @@ static int rtc_sam_set_time(const struct device *dev, const struct rtc_time *tim
 		regs->RTC_IDR = RTC_IDR_ACKDIS;
 
 		k_spin_unlock(&data->lock, key);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	regs->RTC_TIMR = rtc_sam_timr_from_tm(timeptr);

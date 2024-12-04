@@ -783,7 +783,8 @@ static int on_cmd_sockread_common(int socket_id,
 
 	if (!len) {
 		LOG_ERR("Short +USOR[D|F] value.  Aborting!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/*
@@ -798,13 +799,15 @@ static int on_cmd_sockread_common(int socket_id,
 	/* zero length */
 	if (socket_data_length <= 0) {
 		LOG_ERR("Length problem (%d).  Aborting!", socket_data_length);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* check to make sure we have all of the data (minus quotes) */
 	if ((net_buf_frags_len(data->rx_buf) - 2) < socket_data_length) {
 		LOG_DBG("Not enough data -- wait!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* skip quote */

@@ -342,7 +342,8 @@ static int broker_receive(uint8_t expected_packet)
 	}
 
 	if (broker_offset < MQTT_FIXED_HEADER_MIN_SIZE) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	buf.cur = broker_buf;
@@ -356,7 +357,8 @@ static int broker_receive(uint8_t expected_packet)
 	zassert_ok(ret, "Failed to decode fixed header (%d)", ret);
 
 	if (length > buf.end - buf.cur) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	bytes_consumed += buf.cur - broker_buf;

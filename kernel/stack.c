@@ -84,7 +84,8 @@ int k_stack_cleanup(struct k_stack *stack)
 	CHECKIF(z_waitq_head(&stack->wait_q) != NULL) {
 		SYS_PORT_TRACING_OBJ_FUNC_EXIT(k_stack, cleanup, stack, -EAGAIN);
 
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if ((stack->flags & K_STACK_FLAG_ALLOC) != (uint8_t)0) {
@@ -179,7 +180,8 @@ int z_impl_k_stack_pop(struct k_stack *stack, stack_data_t *data,
 	if (result == -EAGAIN) {
 		SYS_PORT_TRACING_OBJ_FUNC_EXIT(k_stack, pop, stack, timeout, -EAGAIN);
 
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	*data = (stack_data_t)_current->base.swap_data;

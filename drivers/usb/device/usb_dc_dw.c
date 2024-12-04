@@ -494,7 +494,8 @@ static int usb_dw_tx(uint8_t ep, const uint8_t *const data,
 		LOG_ERR("USB IN EP%d no space available, DTXFSTS %x", ep_idx,
 			base->in_ep[ep_idx].dtxfsts);
 		irq_unlock(key);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* For now tx-fifo sizes are not configured (cf usb_dw_set_fifo). Here

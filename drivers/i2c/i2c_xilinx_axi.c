@@ -453,7 +453,8 @@ static int i2c_xilinx_axi_wait_tx_done(const struct i2c_xilinx_axi_config *confi
 		}
 		if (events & ISR_ARB_LOST) {
 			LOG_ERR("Arbitration lost on TX");
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 		LOG_ERR("TX received NAK");
 		return -ENXIO;

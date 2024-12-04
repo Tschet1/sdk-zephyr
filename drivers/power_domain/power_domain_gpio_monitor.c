@@ -81,7 +81,8 @@ static int pd_gpio_monitor_pm_action(const struct device *dev, enum pm_device_ac
 		return -ENOTSUP;
 	case PM_DEVICE_ACTION_RESUME:
 		if (!data->is_powered) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 		break;
 	default:

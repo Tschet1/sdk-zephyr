@@ -110,7 +110,8 @@ int linux_socketcan_poll_data(int fd)
 		}
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 int linux_socketcan_read_data(int fd, void *buf, size_t buf_len, bool *msg_confirm)

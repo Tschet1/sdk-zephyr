@@ -187,7 +187,8 @@ static int mqtt_read_message_chunk(struct mqtt_client *client,
 
 	if (len < remaining) {
 		NET_ERR("[CID %p]: Message partially received.", client);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

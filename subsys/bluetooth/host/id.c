@@ -1977,7 +1977,8 @@ int bt_le_oob_get_local(uint8_t id, struct bt_le_oob *oob)
 	}
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (id >= CONFIG_BT_ID_MAX) {
@@ -2056,7 +2057,8 @@ int bt_le_ext_adv_oob_get_local(struct bt_le_ext_adv *adv,
 	}
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (IS_ENABLED(CONFIG_BT_PRIVACY) &&
@@ -2126,7 +2128,8 @@ int bt_le_oob_set_sc_data(struct bt_conn *conn,
 	}
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return bt_smp_le_oob_set_sc_data(conn, oobd_local, oobd_remote);
@@ -2141,7 +2144,8 @@ int bt_le_oob_get_sc_data(struct bt_conn *conn,
 	}
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return bt_smp_le_oob_get_sc_data(conn, oobd_local, oobd_remote);

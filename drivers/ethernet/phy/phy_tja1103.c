@@ -169,7 +169,8 @@ static int update_link_state(const struct device *dev)
 	 * link status is unchanged this time
 	 */
 	if (data->state.is_up == link_up) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	data->state.is_up = link_up;

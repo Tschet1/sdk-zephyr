@@ -870,7 +870,8 @@ int usb_dc_ep_write(const uint8_t ep, const uint8_t *const data,
 	ret = k_sem_take(&ep_state->write_sem, K_NO_WAIT);
 	if (ret) {
 		LOG_ERR("Unable to get write lock (%d)", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!k_is_in_isr()) {
@@ -1019,7 +1020,8 @@ int usb_dc_wakeup_request(void)
 
 	status = HAL_PCD_ActivateRemoteWakeup(&usb_dc_stm32_state.pcd);
 	if (status != HAL_OK) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Must be active from 1ms to 15ms as per reference manual. */
@@ -1027,7 +1029,8 @@ int usb_dc_wakeup_request(void)
 
 	status = HAL_PCD_DeActivateRemoteWakeup(&usb_dc_stm32_state.pcd);
 	if (status != HAL_OK) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

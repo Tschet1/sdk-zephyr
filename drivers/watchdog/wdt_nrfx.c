@@ -151,7 +151,8 @@ static int wdt_nrf_feed(const struct device *dev, int channel_id)
 	}
 	if (!data->enabled) {
 		/* Watchdog is not running so does not need to be fed */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	nrfx_wdt_channel_feed(&config->wdt,

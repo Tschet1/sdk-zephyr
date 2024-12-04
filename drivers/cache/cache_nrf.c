@@ -161,7 +161,8 @@ static inline int _cache_checks(NRF_CACHE_Type *cache, enum k_nrf_cache_op op, v
 {
 	/* Check if the cache is enabled */
 	if (!(cache->ENABLE & CACHE_ENABLE_ENABLE_Enabled)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!is_range) {

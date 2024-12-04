@@ -486,7 +486,8 @@ static int sip_svc_request_handler(struct sip_svc_controller *ctrl)
 	}
 
 	if (k_msgq_get(&ctrl->req_msgq, &request, K_NO_WAIT) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Get command code from request header */

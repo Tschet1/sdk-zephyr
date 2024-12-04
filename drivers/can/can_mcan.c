@@ -984,7 +984,8 @@ int can_mcan_send(const struct device *dev, const struct can_frame *frame, k_tim
 
 	err = k_sem_take(&data->tx_sem, timeout);
 	if (err != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	k_mutex_lock(&data->tx_mtx, K_FOREVER);

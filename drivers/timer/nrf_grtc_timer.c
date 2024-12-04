@@ -90,7 +90,8 @@ static inline int get_comparator(uint32_t chan, uint64_t *cc)
 	result = nrfx_grtc_syscounter_cc_value_read(chan, cc);
 	if (result != NRFX_SUCCESS) {
 		if (result != NRFX_ERROR_INVALID_PARAM) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 		return -EPERM;
 	}

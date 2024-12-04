@@ -242,7 +242,8 @@ int bt_gatt_ots_l2cap_send(struct bt_gatt_ots_l2cap *l2cap_ctx,
 	if (l2cap_ctx->tx.len != 0) {
 		LOG_ERR("L2CAP TX in progress");
 
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	l2cap_ctx->tx.data = data;

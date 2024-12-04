@@ -108,7 +108,8 @@ static void net_iface_init(struct net_if *iface)
 static int dev_init(const struct device *dev)
 {
 	if (device_ok == false) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

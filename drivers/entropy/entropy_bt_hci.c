@@ -21,7 +21,8 @@ static int entropy_bt_get_entropy(const struct device *dev,
 				  uint8_t *buffer, uint16_t length)
 {
 	if (!bt_is_ready()) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return bt_hci_le_rand(buffer, length);

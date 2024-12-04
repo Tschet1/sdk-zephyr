@@ -498,7 +498,8 @@ static int nxp_wifi_start_ap(const struct device *dev, struct wifi_connect_req_p
 
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to enable Wi-Fi AP mode");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = wlan_add_network(&nxp_wlan_network);
@@ -539,7 +540,8 @@ static int nxp_wifi_stop_ap(const struct device *dev)
 
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to disable Wi-Fi AP mode");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -711,7 +713,8 @@ do_scan:
 	if (ret != WM_SUCCESS) {
 		LOG_ERR("Failed to start Wi-Fi scanning");
 		g_mlan.scan_cb = NULL;
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -727,7 +730,8 @@ static int nxp_wifi_version(const struct device *dev, struct wifi_version *param
 
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to get Wi-Fi driver/firmware version");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	params->drv_version = WLAN_DRV_VERSION;
@@ -772,7 +776,8 @@ static int nxp_wifi_ap_bandwidth(const struct device *dev, struct wifi_ap_params
 
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to get/set Wi-Fi AP bandwidth");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -855,7 +860,8 @@ static int nxp_wifi_connect(const struct device *dev, struct wifi_connect_req_pa
 
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to connect to Wi-Fi access point");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = wlan_add_network(&nxp_wlan_network);
@@ -904,7 +910,8 @@ static int nxp_wifi_disconnect(const struct device *dev)
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to disconnect from AP");
 		wifi_mgmt_raise_disconnect_result_event(g_mlan.netif, -1);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	wifi_mgmt_raise_disconnect_result_event(g_mlan.netif, 0);
@@ -1168,7 +1175,8 @@ static int nxp_wifi_power_save(const struct device *dev, struct wifi_ps_params *
 
 				if (status != NXP_WIFI_RET_SUCCESS) {
 					LOG_DBG("Wi-Fi power save is already disabled");
-					return -EAGAIN;
+					printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 				}
 
 				k_event_clear(&s_nxp_wifi_SyncEvent, NXP_WIFI_SYNC_PS_GROUP);
@@ -1192,7 +1200,8 @@ static int nxp_wifi_power_save(const struct device *dev, struct wifi_ps_params *
 
 				if (status != NXP_WIFI_RET_SUCCESS) {
 					LOG_DBG("Wi-Fi power save is already disabled");
-					return -EAGAIN;
+					printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 				}
 			} else if (params->enabled == WIFI_PS_ENABLED) {
 				k_event_clear(&s_nxp_wifi_SyncEvent, NXP_WIFI_SYNC_PS_GROUP);
@@ -1216,7 +1225,8 @@ static int nxp_wifi_power_save(const struct device *dev, struct wifi_ps_params *
 
 				if (status != NXP_WIFI_RET_SUCCESS) {
 					LOG_DBG("Wi-Fi power save is already enabled");
-					return -EAGAIN;
+					printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 				}
 
 				k_event_clear(&s_nxp_wifi_SyncEvent, NXP_WIFI_SYNC_PS_GROUP);
@@ -1244,7 +1254,8 @@ static int nxp_wifi_power_save(const struct device *dev, struct wifi_ps_params *
 
 				if (status != NXP_WIFI_RET_SUCCESS) {
 					LOG_DBG("Wi-Fi power save is already enabled");
-					return -EAGAIN;
+					printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 				}
 			}
 			break;
@@ -1282,7 +1293,8 @@ static int nxp_wifi_power_save(const struct device *dev, struct wifi_ps_params *
 
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to set Wi-Fi power save");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -1331,7 +1343,8 @@ int nxp_wifi_get_power_save(const struct device *dev, struct wifi_ps_config *con
 
 	if (status != NXP_WIFI_RET_SUCCESS) {
 		LOG_ERR("Failed to get Wi-Fi power save config");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -1383,13 +1396,15 @@ static int nxp_wifi_reg_domain(const struct device *dev, struct wifi_reg_domain 
 	} else {
 		if (is_uap_started()) {
 			LOG_ERR("region code can not be set after uAP start!");
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		ret = wlan_set_country_code(reg_domain->country_code);
 		if (ret != WM_SUCCESS) {
 			LOG_ERR("Unable to set country code: %s", reg_domain->country_code);
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 	return 0;

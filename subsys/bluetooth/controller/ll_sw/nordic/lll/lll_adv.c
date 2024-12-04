@@ -1104,7 +1104,8 @@ static int is_abort_cb(void *next, void *curr, lll_prepare_cb_t *resume_cb)
 			err = lll_hfclock_on();
 			LL_ASSERT(err >= 0);
 
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 #endif /* CONFIG_BT_PERIPHERAL */
 		} else {
 			return -ECANCELED;

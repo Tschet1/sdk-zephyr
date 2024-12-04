@@ -113,7 +113,8 @@ int eth_wait_data(int fd)
 		}
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 int eth_clock_gettime(uint64_t *second, uint32_t *nanosecond)

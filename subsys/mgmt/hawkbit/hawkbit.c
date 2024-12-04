@@ -493,7 +493,8 @@ int hawkbit_reset_action_id(void)
 		k_sem_give(&probe_sem);
 		return ret;
 	}
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 int32_t hawkbit_get_action_id(void)
@@ -776,7 +777,8 @@ int hawkbit_set_config(struct hawkbit_runtime_config *config)
 		k_sem_give(&probe_sem);
 	} else {
 		LOG_WRN("failed setting config");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

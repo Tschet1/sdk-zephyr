@@ -419,7 +419,8 @@ static int dwc2_tx_fifo_write(const struct device *dev,
 		if ((len > max_transfer) && ((1 + addnl) > max_pkts)) {
 			LOG_ERR("ep 0x%02x FIFO space is too low, %u (%u)",
 				cfg->addr, spcavail, len);
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		len = MIN(len, max_transfer);

@@ -231,7 +231,8 @@ static int saf_qmspi_init(const struct espi_saf_xec_config *xcfg,
 
 	qmode = qregs->MODE;
 	if (!(qmode & MCHP_QMSPI_M_ACTIVATE)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	qmode = qregs->MODE & (MCHP_QMSPI_M_FDIV_MASK | MCHP_QMSPI_M_SIG_MASK);
@@ -633,7 +634,8 @@ static int espi_saf_xec_configuration(const struct device *dev,
 	}
 
 	if (regs->SAF_FL_CFG_MISC & MCHP_SAF_FL_CFG_MISC_SAF_EN) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	saf_qmspi_init(xcfg, cfg);
@@ -667,7 +669,8 @@ static int espi_saf_xec_configuration(const struct device *dev,
 	}
 
 	if (totalsz == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	regs->SAF_FL_CFG_SIZE_LIM = totalsz - 1;
@@ -729,7 +732,8 @@ static int espi_saf_xec_set_pr(const struct device *dev,
 	struct mchp_espi_saf * const regs = xcfg->saf_base;
 
 	if (regs->SAF_FL_CFG_MISC & MCHP_SAF_FL_CFG_MISC_SAF_EN) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	const struct espi_saf_pr *preg = pr->pregions;
@@ -826,7 +830,8 @@ static int check_ecp_access_size(uint32_t reqlen)
 {
 	if ((reqlen < MCHP_SAF_ECP_CMD_RW_LEN_MIN) ||
 	    (reqlen > MCHP_SAF_ECP_CMD_RW_LEN_MAX)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -885,7 +890,8 @@ static int saf_ecp_access(const struct device *dev,
 		n = get_erase_size_encoding(dev, pckt->len);
 		if (n == UINT32_MAX) {
 			LOG_ERR("SAF EC Portal unsupported erase size");
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 		break;
 	case MCHP_SAF_ECP_CMD_RPMC_OP1_CS0:
@@ -916,7 +922,8 @@ static int saf_ecp_access(const struct device *dev,
 		break;
 	default:
 		LOG_ERR("SAF EC Portal bad cmd");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	LOG_DBG("%s params val done", __func__);

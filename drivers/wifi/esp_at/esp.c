@@ -260,7 +260,8 @@ MODEM_CMD_DEFINE(on_cmd_cipstamac)
 static int esp_pull_quoted(char **str, char *str_end, char **unquoted)
 {
 	if (**str != '"') {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	(*str)++;
@@ -282,7 +283,8 @@ static int esp_pull_quoted(char **str, char *str_end, char **unquoted)
 		(*str)++;
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static int esp_pull(char **str, char *str_end)
@@ -303,7 +305,8 @@ static int esp_pull(char **str, char *str_end)
 		(*str)++;
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static int esp_pull_raw(char **str, char *str_end, char **raw)
@@ -775,7 +778,8 @@ static int cmd_ipd_parse_hdr(struct esp_data *dev,
 
 	/* Wait until minimum cmd length is available */
 	if (frags_len < MIN_IPD_LEN) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	match_len = net_buf_linearize(ipd_buf, MAX_IPD_LEN,
@@ -876,7 +880,8 @@ MODEM_CMD_DIRECT_DEFINE(on_cmd_ipd)
 				&data_offset, &data_len);
 	if (err) {
 		if (err == -EAGAIN) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		return len;
@@ -1491,7 +1496,8 @@ static int esp_reset(const struct device *dev)
 
 	if (ret < 0) {
 		LOG_ERR("Failed to reset device: %d", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 #endif
 	LOG_INF("Waiting for interface to come up");

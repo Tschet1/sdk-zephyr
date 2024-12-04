@@ -1352,7 +1352,8 @@ again:
 			recv_len += res;
 
 			if (res == 0 && recv_len == 0 && K_TIMEOUT_EQ(timeout, K_NO_WAIT)) {
-				return -EAGAIN;
+				printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 			}
 
 			msg->msg_iov[iovec].iov_len += res;
@@ -1386,7 +1387,8 @@ again:
 
 			if (res == 0) {
 				if (recv_len == 0 && K_TIMEOUT_EQ(timeout, K_NO_WAIT)) {
-					return -EAGAIN;
+					printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 				}
 			}
 		}

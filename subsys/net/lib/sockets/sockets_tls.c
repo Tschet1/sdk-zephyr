@@ -1823,7 +1823,8 @@ static int tls_opt_dtls_connection_id_status_get(struct tls_context *context,
 				       &cid.cid_len);
 	if (ret) {
 		/* Handshake is not complete */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	cid.enabled = (enabled == MBEDTLS_SSL_CID_ENABLED);
@@ -3192,7 +3193,8 @@ again:
 	 */
 	pfd->revents &= ~ZSOCK_POLLIN;
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static int ztls_poll_update_ctx(struct tls_context *ctx,

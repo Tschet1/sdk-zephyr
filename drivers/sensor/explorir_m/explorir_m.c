@@ -318,7 +318,8 @@ static int explorir_m_channel_get(const struct device *dev, enum sensor_channel 
 	}
 
 	if (k_uptime_get() < EXPLORIR_M_CO2_VALID_DELAY) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	val->val1 = data->filtered * data->scaling;

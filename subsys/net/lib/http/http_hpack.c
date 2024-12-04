@@ -171,7 +171,8 @@ static int hpack_integer_decode(const uint8_t *buf, size_t datalen,
 	NET_ASSERT(n < 8);
 
 	if (datalen == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Based on RFC7541, ch 5.1. */
@@ -186,7 +187,8 @@ static int hpack_integer_decode(const uint8_t *buf, size_t datalen,
 		len++;
 
 		if (--datalen == 0) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		if (m > sizeof(uint32_t) * 8) {
@@ -247,7 +249,8 @@ static int hpack_string_decode(const uint8_t *buf, size_t datalen,
 	NET_ASSERT(type == HPACK_HEADER_NAME || type == HPACK_HEADER_VALUE);
 
 	if (datalen == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	huffman = *buf & HPACK_STRING_HUFFMAN_FLAG;
@@ -263,7 +266,8 @@ static int hpack_string_decode(const uint8_t *buf, size_t datalen,
 	buf += ret;
 
 	if (str_len > datalen) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (huffman) {
@@ -419,7 +423,8 @@ int http_hpack_decode_header(const uint8_t *buf, size_t datalen,
 	}
 
 	if (datalen == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	prefix = *buf;

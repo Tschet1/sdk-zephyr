@@ -3574,7 +3574,8 @@ int bt_conn_le_create_auto(const struct bt_conn_le_create_param *create_param,
 	int err;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!bt_le_conn_params_valid(param)) {
@@ -3669,7 +3670,8 @@ static int conn_le_create_common_checks(const bt_addr_le_t *peer,
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
 		LOG_DBG("Conn check failed: BT dev not ready.");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!bt_le_conn_params_valid(conn_param)) {
@@ -3679,7 +3681,8 @@ static int conn_le_create_common_checks(const bt_addr_le_t *peer,
 
 	if (!BT_LE_STATES_SCAN_INIT(bt_dev.le.states) && bt_le_explicit_scanner_running()) {
 		LOG_DBG("Conn check failed: scanner was explicitly requested.");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (atomic_test_bit(bt_dev.flags, BT_DEV_INITIATING)) {
@@ -3878,7 +3881,8 @@ int bt_le_set_auto_conn(const bt_addr_le_t *addr,
 	struct bt_conn *conn;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (param && !bt_le_conn_params_valid(param)) {

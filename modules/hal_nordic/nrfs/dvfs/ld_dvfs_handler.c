@@ -314,7 +314,8 @@ int32_t dvfs_service_handler_change_freq_setting(enum dvfs_frequency_setting fre
 {
 	if (!dvfs_service_handler_init_done()) {
 		LOG_WRN("Init not done!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!dvfs_service_handler_freq_setting_allowed(freq_setting)) {

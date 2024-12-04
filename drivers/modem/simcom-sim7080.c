@@ -141,7 +141,8 @@ static int offload_connect(void *obj, const struct sockaddr *addr, socklen_t add
 
 	/* Modem is not attached to the network. */
 	if (get_state() != SIM7080_STATE_NETWORKING) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (modem_socket_is_allocated(&mdata.socket_config, sock) == false) {
@@ -225,7 +226,8 @@ static ssize_t offload_sendto(void *obj, const void *buf, size_t len, int flags,
 	/* Modem is not attached to the network. */
 	if (get_state() != SIM7080_STATE_NETWORKING) {
 		LOG_ERR("Modem currently not attached to the network!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Do some sanity checks. */
@@ -310,7 +312,8 @@ static int sockread_common(int sockfd, struct modem_cmd_handler_data *data, int 
 
 	if (!len) {
 		LOG_ERR("Invalid length, aborting");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!data->rx_buf) {
@@ -320,12 +323,14 @@ static int sockread_common(int sockfd, struct modem_cmd_handler_data *data, int 
 
 	if (socket_data_length <= 0) {
 		LOG_ERR("Length error (%d)", socket_data_length);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (net_buf_frags_len(data->rx_buf) < socket_data_length) {
 		LOG_DBG("Not enough data -- wait!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	sock = modem_socket_from_fd(&mdata.socket_config, sockfd);
@@ -385,7 +390,8 @@ static ssize_t offload_recvfrom(void *obj, void *buf, size_t max_len, int flags,
 	/* Modem is not attached to the network. */
 	if (get_state() != SIM7080_STATE_NETWORKING) {
 		LOG_ERR("Modem currently not attached to the network!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!buf || max_len == 0) {
@@ -457,7 +463,8 @@ static ssize_t offload_sendmsg(void *obj, const struct msghdr *msg, int flags)
 	/* Modem is not attached to the network. */
 	if (get_state() != SIM7080_STATE_NETWORKING) {
 		LOG_ERR("Modem currently not attached to the network!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (sock->type == SOCK_DGRAM) {
@@ -539,7 +546,8 @@ static int offload_close(void *obj)
 	/* Modem is not attached to the network. */
 	if (get_state() != SIM7080_STATE_NETWORKING) {
 		LOG_ERR("Modem currently not attached to the network!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Make sure socket is allocated */
@@ -566,7 +574,8 @@ static int offload_poll(struct zsock_pollfd *fds, int nfds, int msecs)
 	/* Modem is not attached to the network. */
 	if (get_state() != SIM7080_STATE_NETWORKING) {
 		LOG_ERR("Modem currently not attached to the network!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Only accept modem sockets. */
@@ -1561,7 +1570,8 @@ int mdm_sim7080_query_gnss(struct sim7080_gnss_data *data)
 	}
 
 	if (!gnss_data.run_status || !gnss_data.fix_status) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (data) {
@@ -1623,7 +1633,8 @@ MODEM_CMD_DEFINE(on_cmd_ftpget)
 	 * >= to ensure buffer is not empty after skip.
 	 */
 	if (net_buf_frags_len(data->rx_buf) <= nbytes + bytes_to_skip) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	out_len = net_buf_linearize(mdata.ftp.read_buffer, mdata.ftp.nread, data->rx_buf,
@@ -2109,13 +2120,15 @@ MODEM_CMD_DEFINE(on_cmd_cmgl)
 	param_len = net_buf_find_crlf(data->rx_buf, 0);
 	if (param_len == 0) {
 		LOG_INF("No <CR><LF>");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Get actual trailing pdu len. +2 to skip crlf. */
 	sms_len = net_buf_find_crlf(data->rx_buf, param_len + 2);
 	if (sms_len == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Skip to start of pdu. */

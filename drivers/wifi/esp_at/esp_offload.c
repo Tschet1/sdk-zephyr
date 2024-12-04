@@ -463,7 +463,8 @@ static int cmd_ciprecvdata_parse(struct esp_socket *sock,
 
 	frags_len = net_buf_frags_len(buf);
 	if (frags_len < CIPRECVDATA_CMD_MIN_LEN) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	match_len = net_buf_linearize(cmd_buf, CIPRECVDATA_CMD_MAX_LEN,
@@ -477,7 +478,8 @@ static int cmd_ciprecvdata_parse(struct esp_socket *sock,
 	char *strend = strchr(strstart, ',');
 
 	if (strstart == NULL || strend == NULL) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	memcpy(ip_str, strstart, strend - strstart);
@@ -494,7 +496,8 @@ static int cmd_ciprecvdata_parse(struct esp_socket *sock,
 		LOG_ERR("Invalid cmd: %s", cmd_buf);
 		return -EBADMSG;
 	} else if (*endptr == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	} else if (*endptr != _CIPRECVDATA_END) {
 		LOG_ERR("Invalid end of cmd: 0x%02x != 0x%02x", *endptr,
 			_CIPRECVDATA_END);
@@ -506,7 +509,8 @@ static int cmd_ciprecvdata_parse(struct esp_socket *sock,
 
 	/* FIXME: Inefficient way of waiting for data */
 	if (*data_offset + *data_len > frags_len) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	*endptr = 0;
@@ -534,7 +538,8 @@ MODEM_CMD_DIRECT_DEFINE(on_cmd_ciprecvdata)
 #endif
 	if (err) {
 		if (err == -EAGAIN) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		return err;

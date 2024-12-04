@@ -331,7 +331,8 @@ static int qmspi_descr_alloc(QMSPI_Type *regs, const struct spi_buf *txb,
 	int dn;
 
 	if (didx >= MCHP_QMSPI_MAX_DESCR) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (txb->len == 0) {
@@ -370,7 +371,8 @@ static int qmspi_descr_alloc(QMSPI_Type *regs, const struct spi_buf *txb,
 		if (dn < MCHP_QMSPI_MAX_DESCR) {
 			didx++;
 		} else {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		nu -= n;

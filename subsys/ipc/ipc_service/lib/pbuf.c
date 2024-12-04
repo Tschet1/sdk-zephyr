@@ -222,7 +222,8 @@ int pbuf_read(struct pbuf *pb, char *buf, uint16_t len)
 
 	if (occupied_space < plen + PBUF_PACKET_LEN_SZ) {
 		/* This should never happen. */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	rd_idx = idx_wrap(blen, rd_idx + PBUF_PACKET_LEN_SZ);

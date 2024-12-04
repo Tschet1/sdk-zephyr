@@ -1319,7 +1319,8 @@ int modem_cmux_connect(struct modem_cmux *cmux)
 
 	if (k_event_wait(&cmux->event, MODEM_CMUX_EVENT_CONNECTED_BIT, false,
 			 MODEM_CMUX_T2_TIMEOUT) == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -1360,7 +1361,8 @@ int modem_cmux_disconnect(struct modem_cmux *cmux)
 
 	if (k_event_wait(&cmux->event, MODEM_CMUX_EVENT_DISCONNECTED_BIT, false,
 			 MODEM_CMUX_T2_TIMEOUT) == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

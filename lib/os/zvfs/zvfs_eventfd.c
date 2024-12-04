@@ -107,7 +107,8 @@ static int zvfs_eventfd_read_locked(struct zvfs_eventfd *efd, zvfs_eventfd_t *va
 
 	if (efd->cnt == 0) {
 		/* would block / try again */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* successful read */
@@ -144,7 +145,8 @@ static int zvfs_eventfd_write_locked(struct zvfs_eventfd *efd, zvfs_eventfd_t *v
 
 	if (u64_add_overflow(efd->cnt, *value, &result) || result == UINT64_MAX) {
 		/* would block / try again */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* successful write */

@@ -43,7 +43,8 @@ int bt_bap_unicast_server_unregister(void)
 {
 	if (unicast_server_cb != NULL) {
 		LOG_DBG("Callbacks are still registered");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return bt_ascs_unregister();

@@ -700,7 +700,8 @@ int hid_int_ep_write(const struct device *dev, const uint8_t *data, uint32_t dat
 			 data_len, bytes_ret);
 	} else {
 		LOG_WRN("Device is not configured");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 }

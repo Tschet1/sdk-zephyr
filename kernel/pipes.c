@@ -168,7 +168,8 @@ int k_pipe_cleanup(struct k_pipe *pipe)
 
 		SYS_PORT_TRACING_OBJ_FUNC_EXIT(k_pipe, cleanup, pipe, -EAGAIN);
 
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if ((pipe->flags & K_PIPE_FLAG_ALLOC) != 0U) {
@@ -316,7 +317,8 @@ static int pipe_return_code(size_t min_xfer, size_t bytes_remaining,
 		return 0;
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 /**

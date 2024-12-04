@@ -637,7 +637,8 @@ static int can_nxp_s32_send(const struct device *dev,
 	}
 
 	if (k_sem_take(&data->tx_allocs_sem, timeout) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	for (alloc = 0; alloc < CONFIG_CAN_NXP_S32_MAX_TX; alloc++) {

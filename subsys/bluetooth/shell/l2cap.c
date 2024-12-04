@@ -438,11 +438,13 @@ static int cmd_send(const struct shell *sh, size_t argc, char *argv[])
 			if (l2ch_chan.ch.state != BT_L2CAP_CONNECTED) {
 				shell_print(sh, "Channel disconnected, stopping TX");
 
-				return -EAGAIN;
+				printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 			}
 			shell_print(sh, "Allocation timeout, stopping TX");
 
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 		net_buf_reserve(buf, BT_L2CAP_SDU_CHAN_SEND_RESERVE);
 

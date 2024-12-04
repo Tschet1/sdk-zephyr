@@ -124,7 +124,8 @@ static int on_cmd_sockread_common(int socket_fd,
 
 	if (!len) {
 		LOG_ERR("Invalid length, Aborting!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Make sure we still have buf data */
@@ -139,13 +140,15 @@ static int on_cmd_sockread_common(int socket_fd,
 	bytes_to_skip = digits(socket_data_length) + 2 + 4;
 	if (socket_data_length <= 0) {
 		LOG_ERR("Length problem (%d).  Aborting!", socket_data_length);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* check to make sure we have all of the data. */
 	if (net_buf_frags_len(data->rx_buf) < (socket_data_length + bytes_to_skip)) {
 		LOG_DBG("Not enough data -- wait!");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Skip "len" and CRLF */

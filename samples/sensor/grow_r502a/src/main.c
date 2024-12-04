@@ -95,7 +95,8 @@ static int r502a_led(void)
 
 	if (!device_is_ready(led_dev)) {
 		printk("Error: Device %s is not ready\n", led_dev->name);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = led_set_color(led_dev, led_num, led_color_a_inst, &led_color);

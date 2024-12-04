@@ -398,7 +398,8 @@ int can_sja1000_send(const struct device *dev, const struct can_frame *frame, k_
 	}
 
 	if (k_sem_take(&data->tx_idle, timeout) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	sr = can_sja1000_read_reg(dev, CAN_SJA1000_SR);
@@ -512,7 +513,8 @@ int can_sja1000_recover(const struct device *dev, k_timeout_t timeout)
 	while ((sr & CAN_SJA1000_SR_BS) != 0) {
 		if (k_uptime_ticks() - start_ticks > timeout.ticks) {
 			LOG_WRN("bus recovery timed out");
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		sr = can_sja1000_read_reg(dev, CAN_SJA1000_SR);

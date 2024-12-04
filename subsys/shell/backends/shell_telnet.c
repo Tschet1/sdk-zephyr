@@ -204,7 +204,8 @@ static int telnet_send(bool block)
 			 */
 			memmove(sh_telnet->line_out.buf, msg, len);
 			sh_telnet->line_out.len = len;
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		if (ret < 0) {

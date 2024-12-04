@@ -273,12 +273,14 @@ static int ppp_down(struct net_if *iface)
 	if (net_if_is_carrier_ok(iface)) {
 		/* Terminate protocols and close LCP */
 		if (ppp_lcp_close(ctx) < 0) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	} else {
 		/* Terminate protocols */
 		if (ppp_lcp_lower_down(ctx) < 0) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 

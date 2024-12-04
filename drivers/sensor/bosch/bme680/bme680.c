@@ -239,7 +239,8 @@ static int bme680_sample_fetch(const struct device *dev,
 		 * Subequent triggers are < 1ms.
 		 */
 		if (cnt++ > 250) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 		k_sleep(K_MSEC(1));
 		ret = bme680_reg_read(dev, BME680_REG_MEAS_STATUS, &status, 1);

@@ -1344,7 +1344,8 @@ int bt_mesh_access_send(struct bt_mesh_msg_ctx *ctx, struct net_buf_simple *buf,
 
 	if (!bt_mesh_is_provisioned()) {
 		LOG_ERR("Local node is not yet provisioned");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return bt_mesh_trans_send(&tx, buf, cb, cb_data);

@@ -156,7 +156,8 @@ int mqtt_client_websocket_read(struct mqtt_client *client, uint8_t *data,
 		}
 
 		if ((ret == 0) || !(message_type & WEBSOCKET_FLAG_BINARY)) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 	if (ret == -ENOTCONN) {

@@ -177,7 +177,8 @@ static int packet_length_decode(struct buf_ctx *buf, uint32_t *length)
 		}
 
 		if (buf->cur >= buf->end) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		*length += ((uint32_t)*(buf->cur) & MQTT_LENGTH_VALUE_MASK)

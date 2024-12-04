@@ -1005,7 +1005,8 @@ static int modem_cellular_on_run_dial_script_state_leave(struct modem_cellular_d
 static int modem_cellular_on_await_registered_state_enter(struct modem_cellular_data *data)
 {
 	if (modem_ppp_attach(data->ppp, data->dlci1_pipe) < 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	modem_cellular_start_timer(data, MODEM_CELLULAR_PERIODIC_SCRIPT_TIMEOUT);

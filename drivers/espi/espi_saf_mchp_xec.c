@@ -213,7 +213,8 @@ static int saf_qmspi_init(const struct espi_saf_xec_config *xcfg,
 
 	qmode = regs->MODE;
 	if (!(qmode & MCHP_QMSPI_M_ACTIVATE)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	qmode = regs->MODE & (MCHP_QMSPI_M_FDIV_MASK | MCHP_QMSPI_M_SIG_MASK);
@@ -473,7 +474,8 @@ static int espi_saf_xec_configuration(const struct device *dev,
 	}
 
 	if (regs->SAF_FL_CFG_MISC & MCHP_SAF_FL_CFG_MISC_SAF_EN) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	saf_qmspi_init(xcfg, cfg);
@@ -497,7 +499,8 @@ static int espi_saf_xec_configuration(const struct device *dev,
 	saf_flash_cfg(dev, fcfg, 1);
 
 	if (totalsz == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	regs->SAF_FL_CFG_SIZE_LIM = totalsz - 1;
@@ -557,7 +560,8 @@ static int espi_saf_xec_set_pr(const struct device *dev,
 	MCHP_SAF_HW_REGS *regs = (MCHP_SAF_HW_REGS *)xcfg->saf_base_addr;
 
 	if (regs->SAF_FL_CFG_MISC & MCHP_SAF_FL_CFG_MISC_SAF_EN) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	const struct espi_saf_pr *preg = pr->pregions;
@@ -652,7 +656,8 @@ static int check_ecp_access_size(uint32_t reqlen)
 {
 	if ((reqlen < MCHP_SAF_ECP_CMD_RW_LEN_MIN) ||
 	    (reqlen > MCHP_SAF_ECP_CMD_RW_LEN_MAX)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;
@@ -705,11 +710,13 @@ static int saf_ecp_access(const struct device *dev,
 		n = get_erase_size_encoding(pckt->len);
 		if (n == 0xffffffff) {
 			LOG_ERR("SAF EC Portal unsupported erase size");
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	} else {
 		LOG_ERR("SAF EC Portal bad cmd");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	LOG_DBG("%s params val done", __func__);

@@ -1655,7 +1655,8 @@ int usb_dc_ep_write(const uint8_t ep, const uint8_t *const data,
 	 */
 	if (ep_ctx->write_in_progress) {
 		k_mutex_unlock(&ctx->drv_lock);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/** Clear the ZLP flag if current write is ZLP. After the ZLP will be
@@ -1875,7 +1876,8 @@ int usb_dc_wakeup_request(void)
 	bool res = nrf_usbd_common_wakeup_req();
 
 	if (!res) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 	return 0;
 }

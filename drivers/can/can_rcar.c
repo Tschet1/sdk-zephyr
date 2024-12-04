@@ -485,7 +485,8 @@ static int can_rcar_leave_sleep_mode(const struct can_rcar_cfg *config)
 			return 0;
 		}
 	}
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static int can_rcar_enter_reset_mode(const struct can_rcar_cfg *config, bool force)
@@ -505,7 +506,8 @@ static int can_rcar_enter_reset_mode(const struct can_rcar_cfg *config, bool for
 			return 0;
 		}
 	}
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static int can_rcar_enter_halt_mode(const struct can_rcar_cfg *config)
@@ -527,7 +529,8 @@ static int can_rcar_enter_halt_mode(const struct can_rcar_cfg *config)
 		}
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static int can_rcar_enter_operation_mode(const struct can_rcar_cfg *config)
@@ -550,7 +553,8 @@ static int can_rcar_enter_operation_mode(const struct can_rcar_cfg *config)
 	}
 
 	if (i == MAX_STR_READS) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Enable Rx and Tx FIFO */
@@ -845,7 +849,8 @@ static int can_rcar_recover(const struct device *dev, k_timeout_t timeout)
 	}
 
 	if (k_mutex_lock(&data->inst_mutex, K_FOREVER)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	start_time = k_uptime_ticks();
@@ -905,7 +910,8 @@ static int can_rcar_send(const struct device *dev, const struct can_frame *frame
 
 	/* Wait for a slot into the tx FIFO */
 	if (k_sem_take(&data->tx_sem, timeout) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	k_mutex_lock(&data->inst_mutex, K_FOREVER);

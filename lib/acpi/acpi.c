@@ -290,7 +290,8 @@ int acpi_current_resource_get(char *dev_name, ACPI_RESOURCE **res)
 
 	status = check_init_status();
 	if (status) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	node = acpi_evaluate_method(dev_name, METHOD_NAME__CRS);
@@ -323,7 +324,8 @@ int acpi_possible_resource_get(char *dev_name, ACPI_RESOURCE **res)
 
 	status = check_init_status();
 	if (status) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	node = acpi_evaluate_method(dev_name, METHOD_NAME__PRS);

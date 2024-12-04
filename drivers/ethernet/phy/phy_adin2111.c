@@ -278,7 +278,8 @@ int phy_adin2111_handle_phy_irq(const struct device *dev,
 
 	if ((subsys_status & ADIN2111_PHY_SUBSYS_IRQ_STATUS_LINK_STAT_CHNG_LH) == 0U) {
 		/* nothing to process */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	k_sem_take(&data->sem, K_FOREVER);

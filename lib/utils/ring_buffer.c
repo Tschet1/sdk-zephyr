@@ -231,7 +231,8 @@ int ring_buf_item_get(struct ring_buf *buf, uint16_t *type, uint8_t *value,
 	int err;
 
 	if (ring_buf_is_empty(buf)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	err = ring_buf_get_claim(buf, &src, sizeof(struct ring_element));

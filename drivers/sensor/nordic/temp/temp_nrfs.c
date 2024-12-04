@@ -130,7 +130,8 @@ static int api_sensor_trigger_set(const struct device *dev,
 		case NRFS_SUCCESS:
 			break;
 		case NRFS_ERR_INVALID_STATE:
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		default:
 			return -EIO;
 		}

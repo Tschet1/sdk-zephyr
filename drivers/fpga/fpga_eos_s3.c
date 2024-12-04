@@ -92,7 +92,8 @@ static int eos_s3_fpga_reset(const struct device *dev)
 	eos_s3_fpga_on(dev);
 
 	if (eos_s3_fpga_get_status(dev) == FPGA_STATUS_INACTIVE) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

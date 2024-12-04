@@ -335,7 +335,8 @@ static int can_stm32_enter_init_mode(CAN_TypeDef *can)
 	while ((can->MSR & CAN_MSR_INAK) == 0U) {
 		if (k_cycle_get_32() - start_time > CAN_INIT_TIMEOUT) {
 			can->MCR &= ~CAN_MCR_INRQ;
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 
@@ -351,7 +352,8 @@ static int can_stm32_leave_init_mode(CAN_TypeDef *can)
 
 	while ((can->MSR & CAN_MSR_INAK) != 0U) {
 		if (k_cycle_get_32() - start_time > CAN_INIT_TIMEOUT) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 
@@ -367,7 +369,8 @@ static int can_stm32_leave_sleep_mode(CAN_TypeDef *can)
 
 	while ((can->MSR & CAN_MSR_SLAK) != 0) {
 		if (k_cycle_get_32() - start_time > CAN_INIT_TIMEOUT) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 
@@ -727,7 +730,8 @@ static int can_stm32_recover(const struct device *dev, k_timeout_t timeout)
 	}
 
 	if (k_mutex_lock(&data->inst_mutex, K_FOREVER)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = can_stm32_enter_init_mode(can);
@@ -798,7 +802,8 @@ static int can_stm32_send(const struct device *dev, const struct can_frame *fram
 		k_mutex_unlock(&data->inst_mutex);
 		LOG_DBG("Transmit buffer full");
 		if (k_sem_take(&data->tx_int_sem, timeout)) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		k_mutex_lock(&data->inst_mutex, K_FOREVER);

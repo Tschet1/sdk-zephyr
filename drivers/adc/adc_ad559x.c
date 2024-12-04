@@ -152,7 +152,8 @@ static int adc_ad559x_read_channel(const struct device *dev, uint8_t channel, ui
 	 * Valid ADC result has MSB bit set to 0.
 	 */
 	if ((val & AD559X_ADC_RES_IND_BIT) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/*

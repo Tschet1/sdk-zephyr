@@ -406,7 +406,8 @@ static int start_pool_filling(bool wait)
 	/* In non-blocking mode, return immediately if the RNG is not available */
 	if (!wait && z_stm32_hsem_try_lock(CFG_HW_RNG_SEMID) != 0) {
 		irq_unlock(key);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 #else
 	ARG_UNUSED(wait);

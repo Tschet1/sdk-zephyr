@@ -234,7 +234,8 @@ static int wdt_sam0_feed(const struct device *dev, int channel_id)
 	}
 
 	if (WDT_SYNCBUSY) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	WDT_REGS->CLEAR.reg = WDT_CLEAR_CLEAR_KEY_Val;

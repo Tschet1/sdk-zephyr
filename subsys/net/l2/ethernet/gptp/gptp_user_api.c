@@ -73,7 +73,8 @@ int gptp_event_capture(struct net_ptp_time *slave_time, bool *gm_present)
 	}
 
 	irq_unlock(key);
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 char *gptp_sprint_clock_id(const uint8_t *clk_id, char *output, size_t output_len)

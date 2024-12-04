@@ -402,7 +402,8 @@ static int handle_http_preface(struct http_client_ctx *client)
 
 	if (client->data_len < sizeof(HTTP2_PREFACE) - 1) {
 		/* We don't have full preface yet, get more data. */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 #if defined(CONFIG_HTTP_SERVER_CAPTURE_HEADERS)
@@ -424,7 +425,8 @@ static int handle_http_done(struct http_client_ctx *client)
 
 	close_client_connection(client);
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 int enter_http_done_state(struct http_client_ctx *client)
@@ -433,7 +435,8 @@ int enter_http_done_state(struct http_client_ctx *client)
 
 	client->server_state = HTTP_SERVER_DONE_STATE;
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static int handle_http_request(struct http_client_ctx *client)

@@ -83,7 +83,8 @@ int cmd_ticker_info(const struct shell *sh, size_t argc, char *argv[])
 				shell_print(sh, "Retry again, tickers too "
 					    "busy now.");
 
-				return -EAGAIN;
+				printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 			}
 
 			if (tickers_count) {

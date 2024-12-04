@@ -462,7 +462,8 @@ static int imx_usdhc_transfer(const struct device *dev,
 			NULL, request->transfer);
 #endif
 	if (error == kStatus_USDHC_ReTuningRequest) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	} else if (error != kStatus_Success) {
 		return -EIO;
 	}

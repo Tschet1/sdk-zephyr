@@ -1134,7 +1134,8 @@ int bt_mesh_lpn_friend_update(struct bt_mesh_net_rx *rx,
 int bt_mesh_lpn_poll(void)
 {
 	if (!bt_mesh.lpn.established) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	LOG_DBG("Requesting more messages");

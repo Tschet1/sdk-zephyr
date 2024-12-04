@@ -1250,7 +1250,8 @@ int usb_dc_ep_write(uint8_t ep, const uint8_t *data,
 	/* Check if there is bank available */
 	if (ep_idx > 0) {
 		if ((regs->UECON[ep_idx] & USBC_UECON0_FIFOCON) == 0) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 

@@ -75,7 +75,8 @@ int z_impl_k_futex_wait(struct k_futex *futex, int expected,
 	}
 
 	if (atomic_get(&futex->val) != (atomic_val_t)expected) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	key = k_spin_lock(&futex_data->lock);

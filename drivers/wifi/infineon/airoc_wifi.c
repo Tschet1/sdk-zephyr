@@ -471,7 +471,8 @@ static int airoc_mgmt_scan(const struct device *dev, struct wifi_scan_params *pa
 	}
 
 	if (k_sem_take(&data->sema_common, K_MSEC(AIROC_WIFI_WAIT_SEMA_MS)) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	data->scan_rslt_cb = cb;
@@ -481,7 +482,8 @@ static int airoc_mgmt_scan(const struct device *dev, struct wifi_scan_params *pa
 			  NULL, NULL, scan_callback, &(data->scan_result), data) != WHD_SUCCESS) {
 		LOG_ERR("Failed to start scan");
 		k_sem_give(&data->sema_common);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	k_sem_give(&data->sema_common);
@@ -495,7 +497,8 @@ static int airoc_mgmt_connect(const struct device *dev, struct wifi_connect_req_
 	int ret = 0;
 
 	if (k_sem_take(&data->sema_common, K_MSEC(AIROC_WIFI_WAIT_SEMA_MS)) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (data->is_sta_connected) {
@@ -570,7 +573,8 @@ static int airoc_mgmt_disconnect(const struct device *dev)
 	struct airoc_wifi_data *data = (struct airoc_wifi_data *)dev->data;
 
 	if (k_sem_take(&data->sema_common, K_MSEC(AIROC_WIFI_WAIT_SEMA_MS)) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (whd_wifi_leave(airoc_sta_if) != WHD_SUCCESS) {
@@ -610,7 +614,8 @@ static int airoc_mgmt_ap_enable(const struct device *dev, struct wifi_connect_re
 	int ret = 0;
 
 	if (k_sem_take(&data->sema_common, K_MSEC(AIROC_WIFI_WAIT_SEMA_MS)) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (data->is_sta_connected) {
@@ -724,7 +729,8 @@ static int airoc_mgmt_ap_disable(const struct device *dev)
 	struct airoc_wifi_data *data = dev->data;
 
 	if (k_sem_take(&data->sema_common, K_MSEC(AIROC_WIFI_WAIT_SEMA_MS)) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (whd_wifi_deregister_event_handler(airoc_ap_if, ap_event_handler_index)) {
@@ -762,7 +768,8 @@ static int airoc_init(const struct device *dev)
 
 	if (!tid) {
 		LOG_ERR("ERROR spawning tx thread");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 	k_thread_name_set(tid, "airoc_event");
 
@@ -770,7 +777,8 @@ static int airoc_init(const struct device *dev)
 					  &airoc_wifi_buffer_if_default);
 	if (whd_ret != CY_RSLT_SUCCESS) {
 		LOG_ERR("airoc_wifi_init_primary failed ret = %d \r\n", whd_ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 	airoc_if = airoc_sta_if;
 
@@ -778,7 +786,8 @@ static int airoc_init(const struct device *dev)
 				link_events_handler, NULL, &sta_event_handler_index);
 	if (whd_ret != CY_RSLT_SUCCESS) {
 		LOG_ERR("whd_management_set_event_handler failed ret = %d \r\n", whd_ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = k_sem_init(&data->sema_common, 1, 1);

@@ -173,7 +173,8 @@ static int can_xmc4xxx_send(const struct device *dev, const struct can_frame *ms
 	}
 
 	if (k_sem_take(&dev_data->tx_sem, timeout) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	k_mutex_lock(&dev_data->mutex, K_FOREVER);

@@ -614,7 +614,8 @@ int mqtt_live(struct mqtt_client *client)
 	if (ping_sent) {
 		return err_code;
 	} else {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 }
 

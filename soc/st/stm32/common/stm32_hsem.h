@@ -138,7 +138,8 @@ static inline int z_stm32_hsem_try_lock(uint32_t hsem)
 	|| defined(CONFIG_SOC_SERIES_STM32MP1X)
 
 	if (LL_HSEM_1StepLock(HSEM, hsem)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 #endif /* CONFIG_SOC_SERIES_STM32WBX || CONFIG_STM32H7_DUAL_CORE || ... */
 

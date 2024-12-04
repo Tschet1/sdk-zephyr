@@ -711,7 +711,8 @@ static int mcux_flexcan_send(const struct device *dev,
 	}
 
 	if (k_sem_take(&data->tx_allocs_sem, timeout) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	for (alloc = 0; alloc < MCUX_FLEXCAN_MAX_TX; alloc++) {

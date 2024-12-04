@@ -224,7 +224,8 @@ int stm32_dma_disable_stream(DMA_TypeDef *dma, uint32_t id)
 		return 0;
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 void stm32_dma_set_mem_periph_address(DMA_TypeDef *dma,

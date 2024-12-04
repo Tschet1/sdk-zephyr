@@ -1018,7 +1018,8 @@ static int parse_http_frame_padded_field(struct http_client_ctx *client)
 	struct http2_frame *frame = &client->current_frame;
 
 	if (client->data_len == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	frame->padding_len = *client->cursor;
@@ -1049,7 +1050,8 @@ static int parse_http_frame_priority_field(struct http_client_ctx *client)
 	struct http2_frame *frame = &client->current_frame;
 
 	if (client->data_len < HTTP2_HEADERS_FRAME_PRIORITY_LEN) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Priority signalling is deprecated by RFC 9113, however it still
@@ -1253,7 +1255,8 @@ static int handle_incomplete_http_header(struct http_client_ctx *client)
 
 	if (client->data_len < frame->length) {
 		/* Still did not receive entire frame content */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (!client->expect_continuation) {
@@ -1277,7 +1280,8 @@ static int handle_incomplete_http_header(struct http_client_ctx *client)
 	ret = parse_http_frame_header(client, client->cursor + prev_frame_len,
 				      extra_len);
 	if (ret < 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Continuation frame expected. */
@@ -1494,7 +1498,8 @@ int handle_http_frame_priority(struct http_client_ctx *client)
 	}
 
 	if (client->data_len < frame->length) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	/* Priority signalling is deprecated by RFC 9113, however it still
@@ -1521,7 +1526,8 @@ int handle_http_frame_rst_stream(struct http_client_ctx *client)
 	}
 
 	if (client->data_len < frame->length) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (frame->stream_identifier == 0) {
@@ -1556,7 +1562,8 @@ int handle_http_frame_settings(struct http_client_ctx *client)
 	LOG_DBG("HTTP_SERVER_FRAME_SETTINGS");
 
 	if (client->data_len < frame->length) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	bytes_consumed = client->current_frame.length;
@@ -1586,7 +1593,8 @@ int handle_http_frame_goaway(struct http_client_ctx *client)
 	LOG_DBG("HTTP_SERVER_FRAME_GOAWAY");
 
 	if (client->data_len < frame->length) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	bytes_consumed = client->current_frame.length;
@@ -1608,7 +1616,8 @@ int handle_http_frame_window_update(struct http_client_ctx *client)
 	/* TODO Implement flow control, for now just ignore. */
 
 	if (client->data_len < frame->length) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	bytes_consumed = client->current_frame.length;
@@ -1634,7 +1643,8 @@ int handle_http_frame_padding(struct http_client_ctx *client)
 	size_t bytes_consumed;
 
 	if (client->data_len == 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	bytes_consumed = MIN(client->data_len, frame->padding_len);
@@ -1683,7 +1693,8 @@ int parse_http_frame_header(struct http_client_ctx *client, const uint8_t *buffe
 	struct http2_frame *frame = &client->current_frame;
 
 	if (buflen < HTTP2_FRAME_HEADER_SIZE) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	frame->length = sys_get_be24(&buffer[HTTP2_FRAME_LENGTH_OFFSET]);

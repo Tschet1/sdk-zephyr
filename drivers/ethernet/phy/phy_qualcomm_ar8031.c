@@ -169,7 +169,8 @@ static int qc_ar8031_update_link_state(const struct device *dev)
 
 	/* If there is no change in link state don't proceed. */
 	if (link_up == data->state.is_up) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	data->state.is_up = link_up;

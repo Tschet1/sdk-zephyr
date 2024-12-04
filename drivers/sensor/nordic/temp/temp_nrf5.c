@@ -47,7 +47,8 @@ static int temp_nrf5_sample_fetch(const struct device *dev,
 
 	/* Error if before sensor initialized */
 	if (data->clk_mgr == NULL) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (chan != SENSOR_CHAN_ALL && chan != SENSOR_CHAN_DIE_TEMP) {

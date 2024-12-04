@@ -406,7 +406,8 @@ static int install_update_cb_check_blk_num(const struct coap_packet *resp)
 		return 0;
 	}
 
-	return -EAGAIN;
+	printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 }
 
 static void install_update_cb(void)

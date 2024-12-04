@@ -160,7 +160,8 @@ static int itds_fetch_temperature(struct itds_device_data *ddata,
 	}
 
 	if (!(rval & ITDS_EVENT_DRDY_T)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = i2c_burst_read_dt(&cfg->i2c, ITDS_REG_TEMP_L,
@@ -187,7 +188,8 @@ static int itds_fetch_accel(struct itds_device_data *ddata,
 	}
 
 	if (!(rval & ITDS_EVENT_DRDY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = i2c_burst_read_dt(&cfg->i2c, ITDS_REG_X_OUT_L,

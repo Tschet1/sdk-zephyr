@@ -908,7 +908,8 @@ static int wait_rx(int sock, int timeout)
 
 	if (ret == 0) {
 		/* Timeout */
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (fds.revents & ZSOCK_POLLNVAL) {

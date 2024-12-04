@@ -4186,12 +4186,14 @@ static int bt_init(void)
 
 	err = hci_init();
 	if (err) {
+		printk("Error in %s:%u\n", __FILE_NAME__, __LINE__);
 		return err;
 	}
 
 	if (IS_ENABLED(CONFIG_BT_CONN)) {
 		err = bt_conn_init();
 		if (err) {
+			printk("Error in %s:%u\n", __FILE_NAME__, __LINE__);
 			return err;
 		}
 	}
@@ -4199,6 +4201,7 @@ static int bt_init(void)
 	if (IS_ENABLED(CONFIG_BT_ISO)) {
 		err = bt_conn_iso_init();
 		if (err) {
+			printk("Error in %s:%u\n", __FILE_NAME__, __LINE__);
 			return err;
 		}
 	}
@@ -4320,11 +4323,13 @@ int bt_enable(bt_ready_cb_t cb)
 	if (IS_ENABLED(CONFIG_BT_SETTINGS)) {
 		err = bt_settings_init();
 		if (err) {
+			printk("Error in %s:%u\n", __FILE_NAME__, __LINE__);
 			return err;
 		}
 	} else if (IS_ENABLED(CONFIG_BT_DEVICE_NAME_DYNAMIC)) {
 		err = bt_set_name(CONFIG_BT_DEVICE_NAME);
 		if (err) {
+			printk("Error in %s:%u\n", __FILE_NAME__, __LINE__);
 			LOG_WRN("Failed to set device name (%d)", err);
 		}
 	}
@@ -4357,6 +4362,7 @@ int bt_enable(bt_ready_cb_t cb)
 	err = bt_dev.drv->open();
 #endif
 	if (err) {
+		printk("Error in %s:%u\n", __FILE_NAME__, __LINE__);
 		LOG_ERR("HCI driver open failed (%d)", err);
 		return err;
 	}
@@ -4563,7 +4569,8 @@ int bt_le_filter_accept_list_add(const bt_addr_le_t *addr)
 	int err;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	buf = bt_hci_cmd_create(BT_HCI_OP_LE_ADD_DEV_TO_FAL, sizeof(*cp));
@@ -4591,7 +4598,8 @@ int bt_le_filter_accept_list_remove(const bt_addr_le_t *addr)
 	int err;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	buf = bt_hci_cmd_create(BT_HCI_OP_LE_REM_DEV_FROM_FAL, sizeof(*cp));
@@ -4616,7 +4624,8 @@ int bt_le_filter_accept_list_clear(void)
 	int err;
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	err = bt_hci_cmd_send_sync(BT_HCI_OP_LE_CLEAR_FAL, NULL, NULL);

@@ -72,7 +72,8 @@ int sys_sem_give(struct sys_sem *sem)
 			return 0;
 		}
 	} else if (old_value >= sem->limit) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	} else {
 		;
 	}

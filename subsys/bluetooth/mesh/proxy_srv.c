@@ -431,7 +431,8 @@ int bt_mesh_proxy_identity_enable(void)
 	LOG_DBG("");
 
 	if (!bt_mesh_is_provisioned()) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (bt_mesh_subnet_foreach(node_id_start)) {
@@ -450,7 +451,8 @@ int bt_mesh_proxy_private_identity_enable(void)
 	}
 
 	if (!bt_mesh_is_provisioned()) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (bt_mesh_subnet_foreach(private_node_id_start)) {

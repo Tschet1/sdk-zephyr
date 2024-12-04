@@ -66,7 +66,8 @@ static int video_esp32_reload_dma(struct video_esp32_data *data)
 
 	if (data->active_vbuf == NULL) {
 		LOG_ERR("No video buffer available. Enqueue some buffers first.");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	ret = dma_reload(cfg->dma_dev, cfg->rx_dma_channel, 0, (uint32_t)data->active_vbuf->buffer,
@@ -147,7 +148,8 @@ static int video_esp32_stream_start(const struct device *dev)
 	data->active_vbuf = k_fifo_get(&data->fifo_in, K_NO_WAIT);
 	if (!data->active_vbuf) {
 		LOG_ERR("No enqueued video buffers available.");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	buffer_size = data->active_vbuf->bytesused;
@@ -304,7 +306,8 @@ static int video_esp32_dequeue(const struct device *dev, enum video_endpoint_id 
 	*vbuf = k_fifo_get(&data->fifo_out, timeout);
 	LOG_DBG("Dequeue done, vbuf = %p", *vbuf);
 	if (*vbuf == NULL) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

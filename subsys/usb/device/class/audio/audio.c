@@ -897,7 +897,8 @@ int usb_audio_send(const struct device *dev, struct net_buf *buffer,
 
 	if (!audio_dev_data->tx_enable) {
 		LOG_DBG("sending dropped -> Host chose passive interface");
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (len > buffer->size) {

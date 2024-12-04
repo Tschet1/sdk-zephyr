@@ -2506,7 +2506,8 @@ static int gatt_notify(struct bt_conn *conn, uint16_t handle,
 	 * indications to such a client until it becomes change-aware.
 	 */
 	if (!bt_gatt_change_aware(conn, false)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 #endif
 
@@ -2672,7 +2673,8 @@ static int gatt_indicate(struct bt_conn *conn, uint16_t handle,
 	if (!(params->func && (params->func == sc_indicate_rsp ||
 	    params->func == sc_restore_rsp)) &&
 	    !bt_gatt_change_aware(conn, false)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 #endif
 
@@ -2885,7 +2887,8 @@ int bt_gatt_notify_cb(struct bt_conn *conn,
 	__ASSERT(params->attr || params->uuid, "invalid parameters\n");
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (conn && conn->state != BT_CONN_CONNECTED) {
@@ -2956,7 +2959,8 @@ static int gatt_notify_multiple_verify_args(struct bt_conn *conn,
 	}
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (conn->state != BT_CONN_CONNECTED) {
@@ -2972,7 +2976,8 @@ static int gatt_notify_multiple_verify_args(struct bt_conn *conn,
 	 * indications to such a client until it becomes change-aware.
 	 */
 	if (!bt_gatt_change_aware(conn, false)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 #endif
 
@@ -3110,7 +3115,8 @@ int bt_gatt_indicate(struct bt_conn *conn,
 	__ASSERT(params->attr || params->uuid, "invalid parameters\n");
 
 	if (!atomic_test_bit(bt_dev.flags, BT_DEV_READY)) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (conn && conn->state != BT_CONN_CONNECTED) {

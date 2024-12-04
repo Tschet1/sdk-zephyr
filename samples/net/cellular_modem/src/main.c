@@ -117,11 +117,13 @@ static int sample_dns_request(void)
 				NULL,
 				19000);
 	if (ret < 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	if (k_sem_take(&dns_query_sem, K_SECONDS(20)) < 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

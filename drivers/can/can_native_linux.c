@@ -181,7 +181,8 @@ static int can_native_linux_send(const struct device *dev, const struct can_fram
 	socketcan_from_can_frame(frame, &sframe);
 
 	if (k_sem_take(&data->tx_idle, timeout) != 0) {
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	data->tx_callback = callback;

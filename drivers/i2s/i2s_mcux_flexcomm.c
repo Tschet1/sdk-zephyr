@@ -814,7 +814,8 @@ static int i2s_mcux_read(const struct device *dev, void **mem_block,
 		if (stream->state == I2S_STATE_ERROR) {
 			return -EIO;
 		} else {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 	}
 

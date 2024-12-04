@@ -566,7 +566,8 @@ static int is_abort_cb(void *next, void *curr, lll_prepare_cb_t *resume_cb)
 				/* Yield to the pre-emptor, but be
 				 * resumed thereafter.
 				 */
-				return -EAGAIN;
+				printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 			}
 
 			/* Yield to the pre-emptor */

@@ -154,7 +154,8 @@ static int can_loopback_send(const struct device *dev,
 	ret = k_msgq_put(&data->tx_msgq, &loopback_frame, timeout);
 	if (ret < 0) {
 		LOG_DBG("TX queue full (err %d)", ret);
-		return -EAGAIN;
+		printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 	}
 
 	return 0;

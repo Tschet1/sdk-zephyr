@@ -364,7 +364,8 @@ static int chan_send(struct bt_att_chan *chan, struct net_buf *buf)
 		 * modified so the operation will need to be queued.
 		 */
 		if (atomic_test_bit(chan->flags, ATT_PENDING_SENT)) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		if (hdr->code == BT_ATT_OP_SIGNED_WRITE_CMD) {
@@ -375,7 +376,8 @@ static int chan_send(struct bt_att_chan *chan, struct net_buf *buf)
 		if (att_op_get_type(hdr->code) == ATT_REQUEST &&
 		    !atomic_test_bit(chan->chan.chan.status,
 				     BT_L2CAP_STATUS_OUT)) {
-			return -EAGAIN;
+			printk("FAILED: %s:%u\n", __FILE_NAME__, __LINE__);
+return -EAGAIN;
 		}
 
 		atomic_set_bit(chan->flags, ATT_PENDING_SENT);
